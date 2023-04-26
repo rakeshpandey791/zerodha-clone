@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/zerodha-clone/static/css/main.5a52225a.css",
-    "main.js": "/zerodha-clone/static/js/main.dec336ee.js",
-    "static/js/787.9d576594.chunk.js": "/zerodha-clone/static/js/787.9d576594.chunk.js",
+    "main.js": "/zerodha-clone/static/js/main.4169b089.js",
+    "static/js/787.6eb703c2.chunk.js": "/zerodha-clone/static/js/787.6eb703c2.chunk.js",
     "index.html": "/zerodha-clone/index.html",
     "main.5a52225a.css.map": "/zerodha-clone/static/css/main.5a52225a.css.map",
-    "main.dec336ee.js.map": "/zerodha-clone/static/js/main.dec336ee.js.map",
-    "787.9d576594.chunk.js.map": "/zerodha-clone/static/js/787.9d576594.chunk.js.map"
+    "main.4169b089.js.map": "/zerodha-clone/static/js/main.4169b089.js.map",
+    "787.6eb703c2.chunk.js.map": "/zerodha-clone/static/js/787.6eb703c2.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.5a52225a.css",
-    "static/js/main.dec336ee.js"
+    "static/js/main.4169b089.js"
   ]
 }
