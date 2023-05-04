@@ -1,10 +1,41 @@
 import React from "react";
+import { DATA_TABLE_ROW_TYPE } from "../../../constants/global";
 
 interface IProps {
   tableConfig: any;
 }
 
 const CustomTable: React.FC<IProps> = ({ tableConfig }) => {
+  const getRowValue = (idx: number, row: any) => {
+    const type = tableConfig?.headerConfig?.[idx]?.type;
+    const value = tableConfig?.headerConfig?.[idx]?.value;
+    switch (type) {
+      case DATA_TABLE_ROW_TYPE.LABEL:
+        return typeof value !== "function" ? row[value] : value(row);
+      case DATA_TABLE_ROW_TYPE.NUMBER:
+        return row[value];
+      case DATA_TABLE_ROW_TYPE.TIME:
+        const dateObj = new Date(row[value]);
+        return (
+          dateObj.getHours() +
+          ":" +
+          dateObj.getMinutes() +
+          ":" +
+          dateObj.getSeconds()
+        );
+      case DATA_TABLE_ROW_TYPE.PRICE:
+        return typeof value !== "function"
+          ? parseFloat(row[value]).toFixed(2)
+          : parseFloat(value(row)).toFixed(2);
+      case DATA_TABLE_ROW_TYPE.PERCENTAGE:
+        return (
+          (typeof value !== "function"
+            ? parseFloat(row[value]).toFixed(2)
+            : parseFloat(value(row))) + "%"
+        );
+    }
+  };
+
   return (
     <>
       <table className="table-auto text-sm border-2">
@@ -24,44 +55,15 @@ const CustomTable: React.FC<IProps> = ({ tableConfig }) => {
             className="text-xs border-b-2 hover:bg-gray-100"
             key={row.instrument_token}
           >
-            <td className={`py-3 px-20  border-r-2`}>{row.tradingsymbol}</td>
-            <td className={`py-3 px-5  border-r-2`}>{row.quantity}</td>
-            <td className={`py-3 px-5  border-r-2`}>
-              {parseFloat(row.average_price).toFixed(2)}
-            </td>
-            <td className={`py-3 px-5  border-r-2`}>{row.last_price}</td>
-            <td className={`py-3 px-5  border-r-2`}>
-              {parseFloat(String(row.last_price * row.quantity)).toFixed(2)}
-            </td>
-            <td
-              className={`py-3 px-5 border-r-2 ${
-                row.pnl < 0 ? "text-red-500" : "text-green-500"
-              }`}
-            >
-              {parseFloat(row.pnl).toFixed(2)}
-            </td>
-            <td
-              className={`py-3 px-5 border-r-2 ${
-                row.pnl < 0 ? "text-red-500" : "text-green-500"
-              }`}
-            >
-              {parseFloat(
-                String(
-                  ((row.average_price - row.last_price) * 100) /
-                    row.average_price
-                )
-              ).toFixed(2)}
-              %
-            </td>
-            <td
-              className={`py-3 px-5 ${
-                row.day_change_percentage < 0
-                  ? "text-red-500"
-                  : "text-green-500"
-              }`}
-            >
-              {parseFloat(row.day_change_percentage).toFixed(2)}%
-            </td>
+            {tableConfig?.headerConfig.map((header: any, idx: number) => (
+              <td
+                className={`${header?.tdClass}  ${
+                  header?.tdDynamicClass && header?.tdDynamicClass(row)
+                }`}
+              >
+                {getRowValue(idx, row)}
+              </td>
+            ))}
           </tr>
         ))}
       </table>

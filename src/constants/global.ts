@@ -70,3 +70,11 @@ export const HEADER_MENU_ITEMS: Array<IRouteProps> = [
     route: ROUTE_NAME.APPS,
   },
 ];
+
+export const DATA_TABLE_ROW_TYPE = {
+  LABEL: "label",
+  NUMBER: "number",
+  PRICE: "price",
+  PERCENTAGE: "percentage",
+  TIME: "time",
+};

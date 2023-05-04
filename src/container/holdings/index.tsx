@@ -3,19 +3,71 @@ import StockWiseInvestment from "../../components/molecules/stockWiseInvestment"
 import CustomTable from "../../components/organisms/table";
 
 import { holdingData } from "../../constants/data";
+import { DATA_TABLE_ROW_TYPE } from "../../constants/global";
 
 const Holdings = () => {
   const [totalInvestment, setTotalInvestment] = useState(0);
   const tableConfig = {
     headerConfig: [
-      { type: "label", title: "Instrument" },
-      { type: "label", title: "Qty." },
-      { type: "label", title: "Avg. cost" },
-      { type: "label", title: "LTP" },
-      { type: "label", title: "Cur. val" },
-      { type: "label", title: "P&L" },
-      { type: "label", title: "Net chg." },
-      { type: "label", title: "Day chg." },
+      {
+        type: DATA_TABLE_ROW_TYPE.LABEL,
+        title: "Instrument",
+        tdClass: "py-3 px-20 border-r-2",
+        value: "tradingsymbol",
+      },
+      {
+        type: DATA_TABLE_ROW_TYPE.NUMBER,
+        title: "Qty.",
+        tdClass: "py-3 px-5 border-r-2",
+        value: "quantity",
+      },
+      {
+        type: DATA_TABLE_ROW_TYPE.PRICE,
+        title: "Avg. cost",
+        tdClass: "py-3 px-5 border-r-2",
+        value: "average_price",
+      },
+      {
+        type: DATA_TABLE_ROW_TYPE.PRICE,
+        title: "LTP",
+        tdClass: "py-3 px-5 border-r-2",
+        value: "last_price",
+      },
+      {
+        type: DATA_TABLE_ROW_TYPE.PRICE,
+        title: "Cur. val",
+        tdClass: "py-3 px-5  border-r-2",
+        value: (row: any) => row?.last_price * row?.quantity,
+      },
+      {
+        type: DATA_TABLE_ROW_TYPE.PRICE,
+        title: "P&L",
+        tdClass: "py-3 px-5  border-r-2",
+        tdDynamicClass: (row: any) =>
+          row.pnl < 0 ? "text-red-500" : "text-green-500",
+        value: "pnl",
+      },
+      {
+        type: DATA_TABLE_ROW_TYPE.PERCENTAGE,
+        title: "Net chg.",
+        tdClass: "py-3 px-5  border-r-2",
+        tdDynamicClass: (row: any) =>
+          row.pnl < 0 ? "text-red-500" : "text-green-500",
+        value: (row: any) =>
+          parseFloat(
+            String(
+              ((row.average_price - row.last_price) * 100) / row.average_price
+            )
+          ).toFixed(2),
+      },
+      {
+        type: DATA_TABLE_ROW_TYPE.PERCENTAGE,
+        title: "Day chg.",
+        tdClass: "py-3 px-5  border-r-2",
+        tdDynamicClass: (row: any) =>
+          row.day_change_percentage < 0 ? "text-red-500" : "text-green-500",
+        value: "day_change_percentage",
+      },
     ],
     rowData: holdingData?.data,
   };
