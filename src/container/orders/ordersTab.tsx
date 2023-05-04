@@ -18,7 +18,7 @@ const OrdersTab = () => {
         tdClass: "py-3 px-5 border-r-2",
         value: (row: any) => (
           <span
-            className={`px-3 py-1 rounded-sm text-xs  ${
+            className={`px-3 py-1.5 rounded-sm text-xs  ${
               row?.transaction_type === "SELL"
                 ? "bg-red-50 text-red-600"
                 : "bg-green-50 text-green-600"
@@ -32,7 +32,14 @@ const OrdersTab = () => {
         type: DATA_TABLE_ROW_TYPE.LABEL,
         title: "Instrument",
         tdClass: "py-3 px-5 border-r-2",
-        value: "tradingsymbol",
+        value: (row: any) => (
+          <>
+            <span className="text-sm font-normal">{row?.tradingsymbol}</span>{" "}
+            <span className="text-xs font-light text-gray-400">
+              {row?.exchange}
+            </span>
+          </>
+        ),
       },
       {
         type: DATA_TABLE_ROW_TYPE.LABEL,
@@ -58,7 +65,7 @@ const OrdersTab = () => {
         tdClass: "py-3 px-5  border-r-2",
         value: (row: any) => (
           <span
-            className={`px-3 py-1 rounded-sm text-xs  ${
+            className={`px-3 py-1.5 rounded-sm text-xs  ${
               row?.status === "CANCELLED"
                 ? "bg-red-50 text-red-600"
                 : "bg-green-50 text-green-600"
