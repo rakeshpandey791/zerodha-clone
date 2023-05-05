@@ -28,25 +28,27 @@ const Positions = () => {
         tdClass: "py-3 px-5 border-r-2",
         value: (row: any) => (
           <>
-            <span
-              className={`px-3 py-1.5 rounded-sm text-sm font-normal  ${
-                row?.quantity < 0 ? " text-gray-400" : ""
-              }`}
-            >
-              {row?.tradingsymbol}
-            </span>
-            <span className="text-xs font-light text-gray-400">
-              {row?.exchange}
-            </span>
-            <span
-              className={`text-xs font-light ml-2 px-2 py-1  ${
-                row?.quantity < 0
-                  ? "text-gray-400 bg-gray-100"
-                  : "text-orange-400 bg-orange-100"
-              }`}
-            >
-              {row?.quantity > 0 ? "HOLDING" : "SOLD HOLDING"}
-            </span>
+            <div className="text-xs">
+              <span
+                className={`px-3 py-1.5 rounded-sm text-sm font-normal  ${
+                  row?.quantity < 0 ? " text-gray-400" : ""
+                }`}
+              >
+                {row?.tradingsymbol}
+              </span>
+              <span className="text-xs font-light text-gray-400">
+                {row?.exchange}
+              </span>
+              <span
+                className={`text-xs font-light ml-2 px-2 py-1  ${
+                  row?.quantity < 0
+                    ? "text-gray-400 bg-gray-100"
+                    : "text-orange-400 bg-orange-100"
+                }`}
+              >
+                {row?.quantity > 0 ? "HOLDING" : "SOLD HOLDING"}
+              </span>
+            </div>
           </>
         ),
       },
@@ -254,7 +256,7 @@ const Positions = () => {
           </div>
         </div>
       </div>
-      <div className="flex ml-5 flex-wrap">
+      <div className="flex ml-5 flex-wrap ">
         <CustomTable tableConfig={tablePosDayConfig} />
       </div>
     </>
