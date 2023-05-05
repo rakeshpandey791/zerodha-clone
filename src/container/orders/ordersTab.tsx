@@ -67,6 +67,8 @@ const OrdersTab = () => {
           <span
             className={`px-3 py-1.5 rounded-sm text-xs  ${
               row?.status === "CANCELLED"
+                ? "bg-gray-50 text-gray-600"
+                : row?.status === "REJECTED"
                 ? "bg-red-50 text-red-600"
                 : "bg-green-50 text-green-600"
             }`}
