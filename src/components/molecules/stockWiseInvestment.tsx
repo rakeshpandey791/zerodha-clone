@@ -45,7 +45,7 @@ const StockWiseInvestment = () => {
                 }%`,
               }}
             >
-              {stock.tradingsymbol}
+              <span className="text-sm">{stock.tradingsymbol}</span>
             </div>
           </>
         ))}
